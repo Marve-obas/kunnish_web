@@ -1,0 +1,206 @@
+import React from "react";
+import { motion } from "framer-motion";
+
+const phone = "+16475191623";
+const displayPhone = "+1 647-519-1623";
+const address = "4 Emmanuel Kesshi Street, Magodo, Lagos";
+
+const heroImages = [
+  "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80",
+];
+
+const products = {
+  ready: [
+    ["Silk Wrap Dress", 145, "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=900&q=80"],
+    ["Elegant Midi Dress", 120, "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=80"],
+    ["Chic Party Dress", 160, "https://images.unsplash.com/photo-1549062572-544a64fb0c56?auto=format&fit=crop&w=900&q=80"],
+    ["Classy Office Dress", 135, "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=80"],
+    ["Floral Day Dress", 110, "https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=900&q=80"],
+    ["Luxury Evening Look", 210, "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80"],
+  ],
+  trousers: [
+    ["Wide-Leg Trousers", 90, "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=80"],
+    ["High-Waist Pants", 85, "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=900&q=80"],
+    ["Tailored Palazzo", 105, "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80"],
+    ["Corporate Trouser Set", 130, "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=80"],
+  ],
+  boubou: [
+    ["Royal Boubou Gown", 180, "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80"],
+    ["Embroidered Boubou", 220, "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=80"],
+    ["Luxury Kaftan Boubou", 195, "https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=900&q=80"],
+    ["Classic Flowing Gown", 170, "https://images.unsplash.com/photo-1550639524-a6f58345a2ca?auto=format&fit=crop&w=900&q=80"],
+  ],
+};
+
+const academyImages = [
+  ["Pattern Cutting Class", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"],
+  ["Sewing Machine Practice", "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80"],
+  ["Fashion Tools", "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=900&q=80"],
+  ["Student Design Session", "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=900&q=80"],
+];
+
+function Icon({ label, children, className = "" }) {
+  return (
+    <span aria-label={label} role="img" className={`inline-flex shrink-0 items-center justify-center ${className}`}>
+      {children}
+    </span>
+  );
+}
+
+function orderLink(item, price) {
+  const text = encodeURIComponent(`Hello Kunnish Fashion Couture, I want to order the ${item} for $${price}.`);
+  return `https://wa.me/${phone}?text=${text}`;
+}
+
+function academyLink() {
+  const text = encodeURIComponent("Hello Kunnish Fashion Couture, I want to enroll for fashion academy training.");
+  return `https://wa.me/${phone}?text=${text}`;
+}
+
+function ProductCard({ item }) {
+  const [name, price, image] = item;
+  return (
+    <motion.a
+      href={orderLink(name, price)}
+      target="_blank"
+      rel="noreferrer"
+      whileHover={{ y: -8 }}
+      className="group overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/5"
+    >
+      <div className="relative h-80 overflow-hidden">
+        <img src={image} alt={name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
+        <div className="absolute left-4 top-4 rounded-full bg-white/90 px-4 py-2 text-sm font-bold text-rose-700 shadow">${price}</div>
+      </div>
+      <div className="flex items-center justify-between p-5">
+        <div>
+          <h3 className="text-lg font-bold text-slate-950">{name}</h3>
+          <p className="text-sm text-slate-500">Click to order this design</p>
+        </div>
+        <Icon label="Shopping bag" className="text-2xl text-rose-700">🛍️</Icon>
+      </div>
+    </motion.a>
+  );
+}
+
+function Section({ id, title, subtitle, children }) {
+  return (
+    <section id={id} className="px-6 py-20 lg:px-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10 max-w-3xl">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-rose-700">Kunnish Collection</p>
+          <h2 className="text-4xl font-black tracking-tight text-slate-950 md:text-5xl">{title}</h2>
+          <p className="mt-4 text-lg text-slate-600">{subtitle}</p>
+        </div>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function runWebsiteTests() {
+  const allProducts = [...products.ready, ...products.trousers, ...products.boubou];
+
+  console.assert(phone === "+16475191623", "Phone number should remain in WhatsApp/tel format.");
+  console.assert(displayPhone === "+1 647-519-1623", "Display phone should be readable.");
+  console.assert(address.includes("Magodo") && address.includes("Lagos"), "Address should include Magodo, Lagos.");
+  console.assert(products.ready.length >= 6, "Ready-to-wear section should have at least 6 products.");
+  console.assert(products.trousers.length >= 4, "Trouser pants section should have at least 4 products.");
+  console.assert(products.boubou.length >= 4, "Boubou gowns section should have at least 4 products.");
+  console.assert(academyImages.length >= 4, "Academy section should have at least 4 images.");
+  console.assert(allProducts.every((product) => typeof product[1] === "number" && product[1] > 0), "Every product should have a positive dollar price.");
+  console.assert(orderLink("Test Dress", 99).includes("wa.me/"), "Product order links should use WhatsApp.");
+  console.assert(orderLink("Test Dress", 99).includes("Test%20Dress"), "Product order link should include the product name.");
+  console.assert(academyLink().includes("enroll"), "Academy link should include enrollment message.");
+}
+
+runWebsiteTests();
+
+export default function KunnishFashionCouture() {
+  return (
+    <div className="min-h-screen bg-rose-50 text-slate-900">
+      <nav className="sticky top-0 z-50 border-b border-white/40 bg-white/80 px-6 py-4 backdrop-blur lg:px-16">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+          <a href="#home" className="flex items-center gap-2 text-xl font-black tracking-tight text-slate-950">
+            <Icon label="Sparkles" className="text-2xl text-rose-700">✨</Icon> Kunnish Fashion Couture
+          </a>
+          <div className="hidden gap-6 text-sm font-semibold md:flex">
+            <a href="#ready" className="hover:text-rose-700">Ready to Wear</a>
+            <a href="#trousers" className="hover:text-rose-700">Trouser Pants</a>
+            <a href="#boubou" className="hover:text-rose-700">Boubou Gowns</a>
+            <a href="#academy" className="hover:text-rose-700">Academy</a>
+          </div>
+          <a href={`tel:${phone}`} className="rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg hover:bg-rose-700">Call Now</a>
+        </div>
+      </nav>
+
+      <header id="home" className="px-6 py-16 lg:px-16 lg:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+            <p className="mb-4 inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold text-rose-700 shadow">Luxury African & Contemporary Fashion</p>
+            <h1 className="text-5xl font-black leading-tight tracking-tight text-slate-950 md:text-7xl">Beautiful dresses made for elegance, confidence, and class.</h1>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">Discover ready-to-wear designs, stylish trouser pants, graceful boubou gowns, and professional fashion training at Kunnish Fashion Couture.</p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a href="#ready" className="rounded-full bg-rose-700 px-8 py-4 font-bold text-white shadow-xl hover:bg-rose-800">Shop Designs</a>
+              <a href="#academy" className="rounded-full bg-white px-8 py-4 font-bold text-slate-950 shadow-xl hover:bg-rose-100">Join Academy</a>
+            </div>
+            <div className="mt-8 space-y-3 text-slate-700">
+              <p className="flex items-center gap-3"><Icon label="Location" className="text-xl text-rose-700">📍</Icon> {address}</p>
+              <p className="flex items-center gap-3"><Icon label="Phone" className="text-xl text-rose-700">☎️</Icon> {displayPhone}</p>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <img src={heroImages[0]} alt="Elegant fashion dress" className="h-96 rounded-[2rem] object-cover shadow-2xl" />
+            <div className="space-y-4 pt-12">
+              <img src={heroImages[1]} alt="Beautiful couture design" className="h-52 w-full rounded-[2rem] object-cover shadow-2xl" />
+              <img src={heroImages[2]} alt="Fashion model dress" className="h-52 w-full rounded-[2rem] object-cover shadow-2xl" />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <Section id="ready" title="Ready to Wear Designs" subtitle="Elegant pieces you can order instantly for outings, office, parties, and everyday luxury.">
+        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">{products.ready.map((item) => <ProductCard key={item[0]} item={item} />)}</div>
+      </Section>
+
+      <Section id="trousers" title="Trouser Pants" subtitle="Clean, stylish, and comfortable trousers designed for modern women who love standout tailoring.">
+        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">{products.trousers.map((item) => <ProductCard key={item[0]} item={item} />)}</div>
+      </Section>
+
+      <Section id="boubou" title="Boubou Gowns" subtitle="Flowing, graceful boubou and kaftan-inspired gowns for special occasions and timeless beauty.">
+        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">{products.boubou.map((item) => <ProductCard key={item[0]} item={item} />)}</div>
+      </Section>
+
+      <Section id="academy" title="Fashion Academy Training" subtitle="Students learn pattern drafting, sewing, finishing, fabric handling, and fashion business skills.">
+        <div className="mb-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+          {academyImages.map(([title, image]) => (
+            <div key={title} className="overflow-hidden rounded-3xl bg-white shadow-lg">
+              <img src={image} alt={title} className="h-72 w-full object-cover" />
+              <div className="p-5">
+                <h3 className="font-bold text-slate-950">{title}</h3>
+                <p className="mt-2 text-sm text-slate-500">Hands-on fashion training at Kunnish Academy.</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-[2rem] bg-slate-950 p-8 text-white shadow-2xl md:flex md:items-center md:justify-between">
+          <div>
+            <h3 className="flex items-center gap-3 text-3xl font-black"><Icon label="Graduation cap" className="text-3xl text-rose-300">🎓</Icon> Enroll as a Student</h3>
+            <p className="mt-3 max-w-2xl text-slate-300">Start your fashion design journey with practical couture training, tools, and mentorship.</p>
+          </div>
+          <a href={academyLink()} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-rose-600 px-8 py-4 font-bold text-white hover:bg-rose-700 md:mt-0"><Icon label="Scissors" className="text-xl">✂️</Icon> Apply Now</a>
+        </div>
+      </Section>
+
+      <footer className="bg-white px-6 py-10 text-center lg:px-16">
+        <p className="text-2xl font-black text-slate-950">Kunnish Fashion Couture</p>
+        <p className="mt-3 text-slate-600">{address}</p>
+        <p className="mt-1 text-slate-600">{displayPhone}</p>
+        <p className="mt-6 text-sm text-slate-400">© 2026 Kunnish Fashion Couture. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}
+
