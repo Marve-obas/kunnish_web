@@ -1,206 +1,310 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useMemo, useState } from "react";
 
-const phone = "+16475191623";
-const displayPhone = "+1 647-519-1623";
-const address = "4 Emmanuel Kesshi Street, Magodo, Lagos";
+const WHATSAPP_NUMBER = "16475191623";
+const PHONE_DISPLAY = "+1 647-519-1623";
+const ADDRESS = "4 Emmanuel Kesshi Street, Magodo, Lagos";
+
+const sections = [
+  { id: "home", label: "Home" },
+  { id: "ready", label: "Ready to Wear" },
+  { id: "trousers", label: "Trouser Pants" },
+  { id: "boubou", label: "Boubou Gowns" },
+  { id: "academy", label: "Fashion Academy" },
+  { id: "contact", label: "Contact" },
+];
 
 const heroImages = [
   "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=900&q=80",
-  "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
 ];
 
-const products = {
-  ready: [
-    ["Silk Wrap Dress", 145, "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=900&q=80"],
-    ["Elegant Midi Dress", 120, "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=80"],
-    ["Chic Party Dress", 160, "https://images.unsplash.com/photo-1549062572-544a64fb0c56?auto=format&fit=crop&w=900&q=80"],
-    ["Classy Office Dress", 135, "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=80"],
-    ["Floral Day Dress", 110, "https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=900&q=80"],
-    ["Luxury Evening Look", 210, "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80"],
-  ],
-  trousers: [
-    ["Wide-Leg Trousers", 90, "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=80"],
-    ["High-Waist Pants", 85, "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=900&q=80"],
-    ["Tailored Palazzo", 105, "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80"],
-    ["Corporate Trouser Set", 130, "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=80"],
-  ],
-  boubou: [
-    ["Royal Boubou Gown", 180, "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80"],
-    ["Embroidered Boubou", 220, "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=80"],
-    ["Luxury Kaftan Boubou", 195, "https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=900&q=80"],
-    ["Classic Flowing Gown", 170, "https://images.unsplash.com/photo-1550639524-a6f58345a2ca?auto=format&fit=crop&w=900&q=80"],
-  ],
-};
+const readyToWear = [
+  { name: "Royal Satin Midi Dress", price: 185, img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=80" },
+  { name: "Emerald Evening Dress", price: 240, img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80" },
+  { name: "Luxury Ankara Two-Piece", price: 160, img: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=900&q=80" },
+  { name: "Champagne Cocktail Dress", price: 215, img: "https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=900&q=80" },
+  { name: "Pink Statement Dress", price: 195, img: "https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=900&q=80" },
+  { name: "Classic Black Dinner Dress", price: 230, img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80" },
+];
+
+const trousers = [
+  { name: "High-Waist Palazzo Pants", price: 95, img: "https://images.unsplash.com/photo-1506629905607-d9d297d4d569?auto=format&fit=crop&w=900&q=80" },
+  { name: "Executive Wide-Leg Trousers", price: 110, img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=80" },
+  { name: "Chic Tailored Pants", price: 120, img: "https://images.unsplash.com/photo-1551163943-3f7ffc4a4909?auto=format&fit=crop&w=900&q=80" },
+  { name: "Luxury Flow Pants", price: 105, img: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=900&q=80" },
+  { name: "Weekend Smart Pants", price: 89, img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=80" },
+  { name: "Modern Corporate Set", price: 140, img: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=80" },
+];
+
+const boubou = [
+  { name: "Royal Silk Boubou", price: 260, img: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=900&q=80" },
+  { name: "Golden Embroidered Boubou", price: 310, img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80" },
+  { name: "Elegant Occasion Kaftan", price: 285, img: "https://images.unsplash.com/photo-1617922001439-4a2e6562f328?auto=format&fit=crop&w=900&q=80" },
+  { name: "Regal Print Boubou", price: 245, img: "https://images.unsplash.com/photo-1619402063246-0f14f45aa1a0?auto=format&fit=crop&w=900&q=80" },
+  { name: "Luxury Lounge Boubou", price: 220, img: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=900&q=80" },
+  { name: "Pearl Detail Boubou", price: 330, img: "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?auto=format&fit=crop&w=900&q=80" },
+];
 
 const academyImages = [
-  ["Pattern Cutting Class", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"],
-  ["Sewing Machine Practice", "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80"],
-  ["Fashion Tools", "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=900&q=80"],
-  ["Student Design Session", "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=900&q=80"],
+  "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?auto=format&fit=crop&w=900&q=80",
 ];
 
-function Icon({ label, children, className = "" }) {
+function Icon({ children, className = "", size = "text-xl" }) {
   return (
-    <span aria-label={label} role="img" className={`inline-flex shrink-0 items-center justify-center ${className}`}>
+    <span className={`inline-flex select-none items-center justify-center leading-none ${size} ${className}`} aria-hidden="true">
       {children}
     </span>
   );
 }
 
-function orderLink(item, price) {
-  const text = encodeURIComponent(`Hello Kunnish Fashion Couture, I want to order the ${item} for $${price}.`);
-  return `https://wa.me/${phone}?text=${text}`;
+function orderMessage(item) {
+  return `Hello Kunnish Fashion Couture, I want to order ${item.name} for $${item.price}.`;
+}
+
+function orderLink(item) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderMessage(item))}`;
 }
 
 function academyLink() {
-  const text = encodeURIComponent("Hello Kunnish Fashion Couture, I want to enroll for fashion academy training.");
-  return `https://wa.me/${phone}?text=${text}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hello Kunnish Fashion Couture, I want to enroll in the Fashion Academy.")}`;
+}
+
+function runSelfTests() {
+  const testItem = { name: "Test Dress", price: 123 };
+  const allProducts = [...readyToWear, ...trousers, ...boubou];
+
+  console.assert(orderMessage(testItem).includes("Test Dress"), "Order message should include product name");
+  console.assert(orderMessage(testItem).includes("$123"), "Order message should include price");
+  console.assert(orderLink(testItem).startsWith(`https://wa.me/${WHATSAPP_NUMBER}?text=`), "Order link should use WhatsApp URL");
+  console.assert(!orderLink(testItem).includes(" "), "Order link should be URL encoded without spaces");
+  console.assert(sections.some((section) => section.id === "academy"), "Navigation should include academy section");
+  console.assert(sections.some((section) => section.id === "contact"), "Navigation should include contact section");
+  console.assert(allProducts.length >= 18, "Website should include many product images");
+  console.assert(allProducts.every((item) => item.price > 0), "Every product should have a positive price");
+  console.assert(allProducts.every((item) => item.img.startsWith("https://")), "Every product should have a secure image URL");
+  console.assert(academyLink().includes("wa.me"), "Academy application should open WhatsApp");
+  console.assert(PHONE_DISPLAY === "+1 647-519-1623", "Phone display should match the requested contact number");
+  console.assert(ADDRESS.includes("Magodo") && ADDRESS.includes("Lagos"), "Address should include Magodo, Lagos");
+}
+
+if (typeof window !== "undefined") {
+  runSelfTests();
 }
 
 function ProductCard({ item }) {
-  const [name, price, image] = item;
   return (
-    <motion.a
-      href={orderLink(name, price)}
+    <a
+      href={orderLink(item)}
       target="_blank"
       rel="noreferrer"
-      whileHover={{ y: -8 }}
-      className="group overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/5"
+      className="group block overflow-hidden rounded-[2rem] bg-white/10 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl transition duration-500 hover:-translate-y-2 hover:bg-white/15 hover:shadow-fuchsia-950/40"
     >
       <div className="relative h-80 overflow-hidden">
-        <img src={image} alt={name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
-        <div className="absolute left-4 top-4 rounded-full bg-white/90 px-4 py-2 text-sm font-bold text-rose-700 shadow">${price}</div>
-      </div>
-      <div className="flex items-center justify-between p-5">
-        <div>
-          <h3 className="text-lg font-bold text-slate-950">{name}</h3>
-          <p className="text-sm text-slate-500">Click to order this design</p>
+        <img src={item.img} alt={item.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+        <div className="absolute left-5 top-5 rounded-full bg-fuchsia-500 px-4 py-2 text-sm font-bold text-white shadow-lg">
+          ${item.price}
         </div>
-        <Icon label="Shopping bag" className="text-2xl text-rose-700">🛍️</Icon>
+        <div className="absolute bottom-5 left-5 right-5">
+          <h3 className="text-2xl font-black text-white drop-shadow">{item.name}</h3>
+          <p className="mt-2 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-purple-900 transition group-hover:bg-yellow-300">
+            <Icon size="text-base">🛍️</Icon> Order this design
+          </p>
+        </div>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
-function Section({ id, title, subtitle, children }) {
+function CollectionSection({ id, title, subtitle, items, icon }) {
   return (
-    <section id={id} className="px-6 py-20 lg:px-16">
+    <section id={id} className="relative px-5 py-20 sm:px-8 lg:px-16">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-10 max-w-3xl">
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-rose-700">Kunnish Collection</p>
-          <h2 className="text-4xl font-black tracking-tight text-slate-950 md:text-5xl">{title}</h2>
-          <p className="mt-4 text-lg text-slate-600">{subtitle}</p>
+        <div className="mb-10 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-yellow-300 to-pink-500 text-purple-950 shadow-xl">
+            <Icon size="text-3xl">{icon}</Icon>
+          </div>
+          <h2 className="text-4xl font-black text-white sm:text-5xl">{title}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-purple-100">{subtitle}</p>
         </div>
-        {children}
+        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((item) => <ProductCard key={item.name} item={item} />)}
+        </div>
       </div>
     </section>
   );
 }
 
-function runWebsiteTests() {
-  const allProducts = [...products.ready, ...products.trousers, ...products.boubou];
-
-  console.assert(phone === "+16475191623", "Phone number should remain in WhatsApp/tel format.");
-  console.assert(displayPhone === "+1 647-519-1623", "Display phone should be readable.");
-  console.assert(address.includes("Magodo") && address.includes("Lagos"), "Address should include Magodo, Lagos.");
-  console.assert(products.ready.length >= 6, "Ready-to-wear section should have at least 6 products.");
-  console.assert(products.trousers.length >= 4, "Trouser pants section should have at least 4 products.");
-  console.assert(products.boubou.length >= 4, "Boubou gowns section should have at least 4 products.");
-  console.assert(academyImages.length >= 4, "Academy section should have at least 4 images.");
-  console.assert(allProducts.every((product) => typeof product[1] === "number" && product[1] > 0), "Every product should have a positive dollar price.");
-  console.assert(orderLink("Test Dress", 99).includes("wa.me/"), "Product order links should use WhatsApp.");
-  console.assert(orderLink("Test Dress", 99).includes("Test%20Dress"), "Product order link should include the product name.");
-  console.assert(academyLink().includes("enroll"), "Academy link should include enrollment message.");
-}
-
-runWebsiteTests();
-
 export default function KunnishFashionCouture() {
+  const [open, setOpen] = useState(false);
+  const featured = useMemo(() => [...readyToWear.slice(0, 2), ...boubou.slice(0, 2), ...trousers.slice(0, 2)], []);
+
   return (
-    <div className="min-h-screen bg-rose-50 text-slate-900">
-      <nav className="sticky top-0 z-50 border-b border-white/40 bg-white/80 px-6 py-4 backdrop-blur lg:px-16">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-          <a href="#home" className="flex items-center gap-2 text-xl font-black tracking-tight text-slate-950">
-            <Icon label="Sparkles" className="text-2xl text-rose-700">✨</Icon> Kunnish Fashion Couture
+    <main className="min-h-screen overflow-hidden bg-[#18001f] text-white">
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#ff2ea6_0,#6610f2_32%,#18001f_62%,#05000a_100%)]" />
+      <div className="fixed inset-0 -z-10 opacity-30 [background-image:linear-gradient(135deg,rgba(255,255,255,.15)_1px,transparent_1px)] [background-size:30px_30px]" />
+
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-purple-950/70 backdrop-blur-2xl">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-16">
+          <a href="#home" className="flex items-center gap-3">
+            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-yellow-300 via-pink-500 to-purple-600 shadow-xl">
+              <Icon size="text-2xl">✨</Icon>
+            </span>
+            <span>
+              <span className="block text-xl font-black leading-none">Kunnish</span>
+              <span className="text-sm font-semibold text-yellow-200">Fashion Couture</span>
+            </span>
           </a>
-          <div className="hidden gap-6 text-sm font-semibold md:flex">
-            <a href="#ready" className="hover:text-rose-700">Ready to Wear</a>
-            <a href="#trousers" className="hover:text-rose-700">Trouser Pants</a>
-            <a href="#boubou" className="hover:text-rose-700">Boubou Gowns</a>
-            <a href="#academy" className="hover:text-rose-700">Academy</a>
-          </div>
-          <a href={`tel:${phone}`} className="rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg hover:bg-rose-700">Call Now</a>
-        </div>
-      </nav>
 
-      <header id="home" className="px-6 py-16 lg:px-16 lg:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <p className="mb-4 inline-flex rounded-full bg-white px-5 py-2 text-sm font-bold text-rose-700 shadow">Luxury African & Contemporary Fashion</p>
-            <h1 className="text-5xl font-black leading-tight tracking-tight text-slate-950 md:text-7xl">Beautiful dresses made for elegance, confidence, and class.</h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">Discover ready-to-wear designs, stylish trouser pants, graceful boubou gowns, and professional fashion training at Kunnish Fashion Couture.</p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a href="#ready" className="rounded-full bg-rose-700 px-8 py-4 font-bold text-white shadow-xl hover:bg-rose-800">Shop Designs</a>
-              <a href="#academy" className="rounded-full bg-white px-8 py-4 font-bold text-slate-950 shadow-xl hover:bg-rose-100">Join Academy</a>
-            </div>
-            <div className="mt-8 space-y-3 text-slate-700">
-              <p className="flex items-center gap-3"><Icon label="Location" className="text-xl text-rose-700">📍</Icon> {address}</p>
-              <p className="flex items-center gap-3"><Icon label="Phone" className="text-xl text-rose-700">☎️</Icon> {displayPhone}</p>
-            </div>
-          </motion.div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <img src={heroImages[0]} alt="Elegant fashion dress" className="h-96 rounded-[2rem] object-cover shadow-2xl" />
-            <div className="space-y-4 pt-12">
-              <img src={heroImages[1]} alt="Beautiful couture design" className="h-52 w-full rounded-[2rem] object-cover shadow-2xl" />
-              <img src={heroImages[2]} alt="Fashion model dress" className="h-52 w-full rounded-[2rem] object-cover shadow-2xl" />
-            </div>
+          <div className="hidden items-center gap-6 lg:flex">
+            {sections.map((section) => (
+              <a key={section.id} href={`#${section.id}`} className="text-sm font-bold text-purple-100 hover:text-yellow-200">
+                {section.label}
+              </a>
+            ))}
           </div>
-        </div>
+
+          <a href={`tel:+${WHATSAPP_NUMBER}`} className="hidden rounded-full bg-yellow-300 px-5 py-3 text-sm font-black text-purple-950 shadow-lg hover:bg-white lg:inline-flex">
+            Call Now
+          </a>
+
+          <button onClick={() => setOpen(!open)} className="rounded-2xl bg-white/10 p-3 lg:hidden" aria-label="Toggle navigation menu">
+            <Icon size="text-2xl">{open ? "✕" : "☰"}</Icon>
+          </button>
+        </nav>
+        {open && (
+          <div className="grid gap-3 border-t border-white/10 bg-purple-950 px-5 py-5 lg:hidden">
+            {sections.map((section) => (
+              <a onClick={() => setOpen(false)} key={section.id} href={`#${section.id}`} className="rounded-2xl bg-white/10 px-4 py-3 font-bold">
+                {section.label}
+              </a>
+            ))}
+          </div>
+        )}
       </header>
 
-      <Section id="ready" title="Ready to Wear Designs" subtitle="Elegant pieces you can order instantly for outings, office, parties, and everyday luxury.">
-        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">{products.ready.map((item) => <ProductCard key={item[0]} item={item} />)}</div>
-      </Section>
+      <section id="home" className="relative px-5 py-20 sm:px-8 lg:px-16 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
+          <div>
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-3 font-bold text-yellow-100 ring-1 ring-white/20 backdrop-blur">
+              <Icon size="text-lg">✨</Icon> Premium couture from Magodo, Lagos
+            </p>
+            <h1 className="max-w-4xl text-5xl font-black leading-tight sm:text-6xl lg:text-7xl">
+              Colourful, elegant fashion made to make you unforgettable.
+            </h1>
+            <p className="mt-6 max-w-2xl text-xl leading-8 text-purple-100">
+              Discover ready-to-wear designs, trouser pants, boubou gowns, and professional fashion academy training at Kunnish Fashion Couture.
+            </p>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <a href="#ready" className="rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 px-8 py-4 text-center font-black text-purple-950 shadow-2xl transition hover:scale-105">
+                Shop Designs
+              </a>
+              <a href="#academy" className="rounded-full bg-white/10 px-8 py-4 text-center font-black text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-white/20">
+                Join the Academy
+              </a>
+            </div>
+          </div>
 
-      <Section id="trousers" title="Trouser Pants" subtitle="Clean, stylish, and comfortable trousers designed for modern women who love standout tailoring.">
-        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">{products.trousers.map((item) => <ProductCard key={item[0]} item={item} />)}</div>
-      </Section>
+          <div className="grid grid-cols-2 gap-5">
+            {heroImages.map((img, index) => (
+              <div key={img} className={`overflow-hidden rounded-[2.5rem] shadow-2xl ring-1 ring-white/20 ${index === 0 ? "col-span-2 h-80" : "h-72"}`}>
+                <img src={img} alt="Beautiful fashion design" className="h-full w-full object-cover transition duration-700 hover:scale-105" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <Section id="boubou" title="Boubou Gowns" subtitle="Flowing, graceful boubou and kaftan-inspired gowns for special occasions and timeless beauty.">
-        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">{products.boubou.map((item) => <ProductCard key={item[0]} item={item} />)}</div>
-      </Section>
+      <section className="px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-gradient-to-r from-fuchsia-600/80 via-purple-700/80 to-yellow-500/80 p-7 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl sm:p-10">
+          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <h2 className="text-3xl font-black sm:text-4xl">Featured Designs</h2>
+              <p className="mt-2 text-purple-50">Click any dress or outfit to order instantly.</p>
+            </div>
+            <a href="#contact" className="rounded-full bg-white px-6 py-3 text-center font-black text-purple-950">Visit Our Store</a>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((item) => <ProductCard key={item.name} item={item} />)}
+          </div>
+        </div>
+      </section>
 
-      <Section id="academy" title="Fashion Academy Training" subtitle="Students learn pattern drafting, sewing, finishing, fabric handling, and fashion business skills.">
-        <div className="mb-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
-          {academyImages.map(([title, image]) => (
-            <div key={title} className="overflow-hidden rounded-3xl bg-white shadow-lg">
-              <img src={image} alt={title} className="h-72 w-full object-cover" />
-              <div className="p-5">
-                <h3 className="font-bold text-slate-950">{title}</h3>
-                <p className="mt-2 text-sm text-slate-500">Hands-on fashion training at Kunnish Academy.</p>
+      <CollectionSection id="ready" title="Ready to Wear Designs" subtitle="Statement dresses and polished outfits for birthdays, weddings, church, dinner, office events, and special moments." items={readyToWear} icon="👗" />
+      <CollectionSection id="trousers" title="Trouser Pants Collection" subtitle="Smart, feminine trouser pants made for confidence, comfort, and standout styling." items={trousers} icon="📏" />
+      <CollectionSection id="boubou" title="Boubou Gowns" subtitle="Elegant boubou gowns and kaftan-inspired luxury pieces for queens who love comfort and class." items={boubou} icon="✨" />
+
+      <section id="academy" className="px-5 py-20 sm:px-8 lg:px-16">
+        <div className="mx-auto grid max-w-7xl gap-10 rounded-[2.5rem] bg-white/10 p-7 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl sm:p-10 lg:grid-cols-[.95fr_1.05fr]">
+          <div>
+            <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-yellow-300 text-purple-950 shadow-xl">
+              <Icon size="text-3xl">🎓</Icon>
+            </div>
+            <h2 className="text-4xl font-black sm:text-5xl">Kunnish Fashion Academy</h2>
+            <p className="mt-5 text-lg leading-8 text-purple-100">
+              Learn professional sewing, measurements, pattern drafting, finishing, design styling, fabric selection, and how to build a fashion brand. Perfect for beginners and growing designers.
+            </p>
+            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+              {["Pattern drafting", "Sewing techniques", "Fashion tools", "Student projects"].map((item) => (
+                <div key={item} className="flex items-center gap-3 rounded-2xl bg-black/20 p-4 font-bold">
+                  <Icon className="text-yellow-200" size="text-xl">✂️</Icon> {item}
+                </div>
+              ))}
+            </div>
+            <a href={academyLink()} target="_blank" rel="noreferrer" className="mt-8 inline-flex rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 px-8 py-4 font-black text-purple-950 shadow-2xl">
+              Apply for Training
+            </a>
+          </div>
+          <div className="grid grid-cols-2 gap-5">
+            {academyImages.map((img) => (
+              <div key={img} className="h-64 overflow-hidden rounded-[2rem] shadow-xl ring-1 ring-white/20">
+                <img src={img} alt="Fashion academy students and tools" className="h-full w-full object-cover transition duration-700 hover:scale-105" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="px-5 pb-20 pt-8 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-gradient-to-br from-yellow-300 via-pink-500 to-purple-700 p-1 shadow-2xl">
+          <div className="rounded-[2.35rem] bg-purple-950/85 p-8 backdrop-blur-xl sm:p-12">
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+              <div>
+                <h2 className="text-4xl font-black sm:text-5xl">Visit or order today</h2>
+                <p className="mt-4 text-lg text-purple-100">Choose a design, click order, or contact Kunnish Fashion Couture directly.</p>
+              </div>
+              <div className="grid gap-4">
+                <div className="flex gap-4 rounded-3xl bg-white/10 p-5 ring-1 ring-white/20">
+                  <Icon className="mt-1 text-yellow-200" size="text-2xl">📍</Icon>
+                  <div>
+                    <p className="font-black">Address</p>
+                    <p className="text-purple-100">{ADDRESS}</p>
+                  </div>
+                </div>
+                <div className="flex gap-4 rounded-3xl bg-white/10 p-5 ring-1 ring-white/20">
+                  <Icon className="mt-1 text-yellow-200" size="text-2xl">☎️</Icon>
+                  <div>
+                    <p className="font-black">Phone / WhatsApp</p>
+                    <a href={`tel:+${WHATSAPP_NUMBER}`} className="text-purple-100 hover:text-yellow-200">{PHONE_DISPLAY}</a>
+                  </div>
+                </div>
+                <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="rounded-full bg-yellow-300 px-8 py-4 text-center font-black text-purple-950 shadow-xl hover:bg-white">
+                  Chat on WhatsApp
+                </a>
               </div>
             </div>
-          ))}
-        </div>
-        <div className="rounded-[2rem] bg-slate-950 p-8 text-white shadow-2xl md:flex md:items-center md:justify-between">
-          <div>
-            <h3 className="flex items-center gap-3 text-3xl font-black"><Icon label="Graduation cap" className="text-3xl text-rose-300">🎓</Icon> Enroll as a Student</h3>
-            <p className="mt-3 max-w-2xl text-slate-300">Start your fashion design journey with practical couture training, tools, and mentorship.</p>
           </div>
-          <a href={academyLink()} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-rose-600 px-8 py-4 font-bold text-white hover:bg-rose-700 md:mt-0"><Icon label="Scissors" className="text-xl">✂️</Icon> Apply Now</a>
         </div>
-      </Section>
+      </section>
 
-      <footer className="bg-white px-6 py-10 text-center lg:px-16">
-        <p className="text-2xl font-black text-slate-950">Kunnish Fashion Couture</p>
-        <p className="mt-3 text-slate-600">{address}</p>
-        <p className="mt-1 text-slate-600">{displayPhone}</p>
-        <p className="mt-6 text-sm text-slate-400">© 2026 Kunnish Fashion Couture. All rights reserved.</p>
+      <footer className="border-t border-white/10 px-5 py-8 text-center text-purple-100 sm:px-8 lg:px-16">
+        <p className="font-bold">© 2026 Kunnish Fashion Couture. Designed for elegance, colour, and confidence.</p>
       </footer>
-    </div>
+    </main>
   );
 }
 
