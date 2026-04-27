@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,30 +7,121 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 
+<style>
+  body {
+    background: radial-gradient(circle at top, #ff2ea6, #6610f2, #18001f);
+  }
+</style>
+
 </head>
 
-<body class="bg-[#18001f] text-white">
+<body class="text-white">
 
-<!-- HEADER -->
-
-<header class="sticky top-0 bg-purple-950 p-4 text-center text-2xl font-bold">
-  Kunnish Fashion Couture
+<!-- NAV -->
+<header class="flex justify-between items-center p-5 bg-black/30 backdrop-blur">
+  <h1 class="text-2xl font-bold">Kunnish Couture</h1>
+  <nav class="space-x-4">
+    <a href="#ready">Ready</a>
+    <a href="#trousers">Trousers</a>
+    <a href="#boubou">Boubou</a>
+    <a href="#academy">Academy</a>
+  </nav>
 </header>
 
 <!-- HERO -->
-
-<section class="text-center p-10">
-  <h1 class="text-4xl font-bold">Elegant Fashion for Every Occasion</h1>
-  <p class="mt-3">Click any item to order via WhatsApp</p>
+<section class="text-center p-16">
+  <h1 class="text-5xl font-black">Luxury Fashion That Speaks Elegance</h1>
+  <p class="mt-4 text-lg">Designed for beauty, confidence & class</p>
 </section>
 
-<!-- PRODUCTS -->
+<!-- PRODUCTS CONTAINER -->
+<section id="ready" class="p-10">
+  <h2 class="text-3xl font-bold mb-6 text-center">Ready To Wear</h2>
+  <div class="grid md:grid-cols-3 gap-6" id="ready-products"></div>
+</section>
 
-<div id="products" class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6"></div>
+<section id="trousers" class="p-10">
+  <h2 class="text-3xl font-bold mb-6 text-center">Trouser Pants</h2>
+  <div class="grid md:grid-cols-3 gap-6" id="trouser-products"></div>
+</section>
+
+<section id="boubou" class="p-10">
+  <h2 class="text-3xl font-bold mb-6 text-center">Boubou Gowns</h2>
+  <div class="grid md:grid-cols-3 gap-6" id="boubou-products"></div>
+</section>
+
+<!-- ACADEMY -->
+<section id="academy" class="p-10 text-center">
+  <h2 class="text-3xl font-bold mb-6">Fashion Academy</h2>
+
+  <div class="grid md:grid-cols-4 gap-4">
+    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2" class="rounded-xl">
+    <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b" class="rounded-xl">
+    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348" class="rounded-xl">
+    <img src="https://images.unsplash.com/photo-1584184924103-e310d9dc82fc" class="rounded-xl">
+  </div>
+
+  <p class="mt-6">Learn sewing, pattern drafting & fashion design</p>
+
+  <a href="https://wa.me/2348036191649" class="mt-4 inline-block bg-yellow-400 text-black px-6 py-3 rounded-full font-bold">
+    Apply via WhatsApp
+  </a>
+</section>
 
 <!-- CONTACT -->
-
 <section class="p-10 text-center">
-  <h2 class="text-2xl font-bold">Contact Us</h2>
-  <p class="mt-2">📍 Mag
+  <h2 class="text-3xl font-bold">Contact</h2>
+  <p class="mt-2">📍 4 Emmanuel Kesshi Street, Magodo Lagos</p>
+  <p>📞 +2348036191649</p>
+</section>
 
+<!-- FOOTER -->
+<footer class="text-center p-6 text-sm">
+  © 2026 Kunnish Fashion Couture
+</footer>
+
+<script>
+const WHATSAPP = "2348036191649";
+
+function createCard(item){
+  return `
+  <a href="https://wa.me/${WHATSAPP}?text=I want to order ${item.name} for $${item.price}" 
+     target="_blank"
+     class="block bg-white/10 rounded-xl overflow-hidden hover:scale-105 transition">
+
+    <img src="${item.img}" class="h-72 w-full object-cover">
+
+    <div class="p-4">
+      <h3 class="font-bold text-lg">${item.name}</h3>
+      <p class="text-yellow-300 font-bold">$${item.price}</p>
+    </div>
+
+  </a>`;
+}
+
+const ready = [
+  {name:"Royal Satin Dress", price:185, img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8"},
+  {name:"Evening Red Dress", price:220, img:"https://images.unsplash.com/photo-1566174053879-31528523f8ae"},
+  {name:"Pink Luxury Dress", price:200, img:"https://images.unsplash.com/photo-1495385794356"}
+];
+
+const trousers = [
+  {name:"Palazzo Pants", price:90, img:"https://images.unsplash.com/photo-1506629905607"},
+  {name:"Wide Leg Trousers", price:110, img:"https://images.unsplash.com/photo-1594633312681"},
+  {name:"Corporate Pants", price:120, img:"https://images.unsplash.com/photo-1551163943"}
+];
+
+const boubou = [
+  {name:"Silk Boubou", price:260, img:"https://images.unsplash.com/photo-1583391733956"},
+  {name:"Golden Boubou", price:310, img:"https://images.unsplash.com/photo-1610030469983"},
+  {name:"Luxury Kaftan", price:280, img:"https://images.unsplash.com/photo-1617922001439"}
+];
+
+document.getElementById("ready-products").innerHTML = ready.map(createCard).join("");
+document.getElementById("trouser-products").innerHTML = trousers.map(createCard).join("");
+document.getElementById("boubou-products").innerHTML = boubou.map(createCard).join("");
+
+</script>
+
+</body>
+</html>
