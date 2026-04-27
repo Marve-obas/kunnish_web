@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kunnish Fashion Couture</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #4b0039, #7b1fa2, #ff6f61, #f9a825);
+      color: #fff;
+    }
+
+    header {
+      padding: 25px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.45);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    nav a {
+      color: #fff;
+      margin-left: 22px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover { color: #ffd700; }
+
+    .hero {
+      min-height: 90vh;
+      padding: 90px 8%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero h1 {
+      font-size: 58px;
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin: 25px 0;
+      max-width: 600px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #ffd700;
+      color: #3b0030;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .hero img {
+      width: 100%;
+      border-radius: 35px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+    }
+
+    section {
+      padding: 70px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 15px;
+      color: #ffd700;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      margin-bottom: 45px;
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.14);
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+      transition: 0.3s;
+      backdrop-filter: blur(8px);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    }
+
+    .card img {
+      width: 100%;
+      height: 330px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      color: #ffd700;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .order-btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 25px;
+      background: #ff4081;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .order-btn:hover {
+      background: #ffd700;
+      color: #4b0039;
+    }
+
+    .category-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-top: 35px;
+    }
+
+    .category {
+      padding: 35px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #ff4081, #7c4dff);
+      border-radius: 25px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+    }
+
+    .category:hover {
+      background: linear-gradient(135deg, #ffd700, #ff6f61);
+      color: #3b0030;
+    }
+
+    .academy {
+      background: rgba(0,0,0,0.35);
+      border-radius: 35px;
+      margin: 60px 8%;
+    }
+
+    footer {
+      background: rgba(0,0,0,0.65);
+      text-align: center;
+      padding: 35px 8%;
+      font-size: 16px;
+    }
+
+    @media (max-width: 850px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 8px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Kunnish Fashion Couture</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#ready">Ready to Wear</a>
+    <a href="#trousers">Trouser Pants</a>
+    <a href="#boubou">Boubou Gowns</a>
+    <a href="#academy">Academy</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div>
+    <h1>Elegant African Fashion for Confident Women</h1>
+    <p>
+      Discover colourful, classy and beautifully crafted dresses from Kunnish Fashion Couture.
+      Designed with style, grace and excellence in Lagos.
+    </p>
+    <a href="#ready" class="btn">Shop Our Designs</a>
+
+    <div class="category-links">
+      <a href="#ready" class="category">Ready to Wear</a>
+      <a href="#trousers" class="category">Trouser Pants</a>
+      <a href="#boubou" class="category">Boubou Gowns</a>
+      <a href="#academy" class="category">Fashion Academy</a>
+    </div>
+  </div>
+
+  <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80" alt="Beautiful fashion dress">
+</section>
+
+<section id="ready">
+  <h2 class="section-title">Ready to Wear Designs</h2>
+  <p class="section-subtitle">Stylish dresses made for elegance and comfort.</p>
+
+  <div class="grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=700&q=80" alt="Ready to wear dress">
+      <div class="card-content">
+        <h3>Royal Pink Dress</h3>
+        <p class="price">$85</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20the%20Royal%20Pink%20Dress">Order Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=700&q=80" alt="Elegant dress">
+      <div class="card-content">
+        <h3>Classic Chic Dress</h3>
+        <p class="price">$95</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20the%20Classic%20Chic%20Dress">Order Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80" alt="Fashion design dress">
+      <div class="card-content">
+        <h3>Luxury Evening Dress</h3>
+        <p class="price">$120</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20the%20Luxury%20Evening%20Dress">Order Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80" alt="Designer outfit">
+      <div class="card-content">
+        <h3>Bold Designer Outfit</h3>
+        <p class="price">$110</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20the%20Bold%20Designer%20Outfit">Order Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trousers">
+  <h2 class="section-title">Trouser Pants</h2>
+  <p class="section-subtitle">Modern, smart and beautifully tailored pants.</p>
+
+  <div class="grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80" alt="Fashion trousers">
+      <div class="card-content">
+        <h3>Executive Wide Pants</h3>
+        <p class="price">$70</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20Executive%20Wide%20Pants">Order Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&w=700&q=80" alt="Stylish trouser pants">
+      <div class="card-content">
+        <h3>Elegant Office Pants</h3>
+        <p class="price">$65</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20Elegant%20Office%20Pants">Order Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=700&q=80" alt="Designer pants">
+      <div class="card-content">
+        <h3>Luxury Palazzo Pants</h3>
+        <p class="price">$80</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20Luxury%20Palazzo%20Pants">Order Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="boubou">
+  <h2 class="section-title">Boubou Gowns</h2>
+  <p class="section-subtitle">Graceful gowns inspired by African royalty.</p>
+
+  <div class="grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80" alt="Boubou gown">
+      <div class="card-content">
+        <h3>Golden Boubou Gown</h3>
+        <p class="price">$130</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20Golden%20Boubou%20Gown">Order Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=700&q=80" alt="Luxury gown">
+      <div class="card-content">
+        <h3>Queen Boubou Dress</h3>
+        <p class="price">$145</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20Queen%20Boubou%20Dress">Order Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1603217040830-34473db521a3?auto=format&fit=crop&w=700&q=80" alt="Elegant gown">
+      <div class="card-content">
+        <h3>Elegant Flow Gown</h3>
+        <p class="price">$125</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20order%20Elegant%20Flow%20Gown">Order Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="academy" id="academy">
+  <h2 class="section-title">Kunnish Fashion Academy</h2>
+  <p class="section-subtitle">
+    Learn sewing, pattern drafting, fashion illustration and couture finishing from experts.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=700&q=80" alt="Fashion tools">
+      <div class="card-content">
+        <h3>Fashion Tools Training</h3>
+        <p class="price">$250 Course Fee</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20join%20the%20Fashion%20Tools%20Training">Apply Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=700&q=80" alt="Students learning fashion">
+      <div class="card-content">
+        <h3>Beginner Sewing Class</h3>
+        <p class="price">$300 Course Fee</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20join%20the%20Beginner%20Sewing%20Class">Apply Now</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=700&q=80" alt="Fashion studio">
+      <div class="card-content">
+        <h3>Advanced Couture Class</h3>
+        <p class="price">$450 Course Fee</p>
+        <a class="order-btn" href="https://wa.me/16475191623?text=I%20want%20to%20join%20the%20Advanced%20Couture%20Class">Apply Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <h2>Kunnish Fashion Couture</h2>
+  <p>Address: 4 Emmanuel Kesshi Street, Magodo, Lagos</p>
+  <p>Phone / WhatsApp: +1 647-519-1623</p>
+  <p>&copy; 2026 Kunnish Fashion Couture. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
